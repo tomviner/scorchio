@@ -22,7 +22,7 @@ class Shell(object):
 
 class Tank(object):
 
-    def __init__(self, start_x, start_y=100, angle=0):
+    def __init__(self, start_x, start_y=550, angle=0):
         self.x = start_x
         self.y = start_y
         self.angle = angle
