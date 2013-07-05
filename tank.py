@@ -1,4 +1,4 @@
-#from game import Game
+from game import draw_world
 
 from Tkinter import *
 
@@ -15,17 +15,18 @@ class Tank(object):
 
 class GameLoop(object):
     def tick(self):
-        #game.draw(t1.coords, t2.coords)
-        #game.draw(t1.coords, t2.coords)
 
-        self.canvas.create_line(0, 0, self.i, 100)
+        draw_world(
+            tank_1=t1.coords,
+            tank_2=t2.coords,
+        )
 
-        self.i += 1
+        self.t += 1
         self.root.after(20, self.tick)
 
 
     def __init__(self):
-        self.i = 0
+        self.t = 0
         self.root = Tk()
 
         self.canvas = Canvas(self.root, width=200, height=100)
@@ -37,9 +38,10 @@ class GameLoop(object):
         self.root.after(2000, self.tick)
         self.root.mainloop()
 
+
 def main():
     g = GameLoop()
-    g.run()
+
 
 if __name__ == '__main__':
     main()
