@@ -1,3 +1,5 @@
+import math
+
 from game import Game
 
 from Tkinter import *
@@ -40,7 +42,8 @@ class Tank(object):
         return (self.x, self.y)
 
     def fire(self, angle):
-        pass
+        return Shell(self.x, self.y, math.sin(self.angle), math.cos(self.angle))
+
 
 
 class GameLoop(object):
@@ -48,13 +51,19 @@ class GameLoop(object):
         self.game.draw_setup(self.canvas,
                        self.t1.x, self.t1.y,
                        self.t2.x, self.t2.y)
-        self.game.draw_projectile(self.canvas, 0, 0)
+        if self.projectile:
+            x, y = self.projectile.position_at_time(self.t)
+            if y > 570:
+                self.projectile = None
+            else:
+                self.game.draw_projectile(self.canvas, x, y)
         self.t += 1
         self.root.after(20, self.tick)
 
     def __init__(self):
         self.t = 0
         self.root = Tk()
+        self.projectile = None
 
         self.canvas = Canvas(self.root, bg="blue", width=800, height=600)
         self.canvas.focus_set()
@@ -76,7 +85,8 @@ class GameLoop(object):
         elif event.char == "k":
             self.t1.turret_right()
         elif event.char == " ":
-            self.t1.fire()
+            proj = self.t1.fire()
+            self.projectile = proj
 
 def main():
     GameLoop()
