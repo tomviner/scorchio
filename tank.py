@@ -35,6 +35,12 @@ class Tank(object):
         self.angle += 1
         print self.angle
 
+    def move_left(self):
+        self.x -= 1
+
+    def move_right(self):
+        self.x += 1
+
     @property
     def coords(self):
         return (self.x, self.y)
@@ -75,6 +81,10 @@ class GameLoop(object):
             self.t1.turret_left()
         elif event.char == "k":
             self.t1.turret_right()
+        if event.char == "a":
+            self.t1.move_left()
+        elif event.char == "d":
+            self.t1.move_right()
         elif event.char == " ":
             self.t1.fire()
 
