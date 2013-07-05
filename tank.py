@@ -1,23 +1,23 @@
-#from game import draw_world
+from game import Game
 
 from Tkinter import *
 
 
 
 class Shell(object):
-    g = 9.8
+    g = -9.8
 
     def __init__(self, start_x, start_y,
         speed_x, speed_y):
-        self.x = start_x
-        self.y = start_y
-        self.speed_x = speed_x
-        # never changes
-        self.speed_y = speed_y
+        self.start_x = start_x
+        self.start_y = start_y
+        self.initial_speed_x = speed_x
+        self.initial_speed_y = speed_y
 
-    def position_at_time(t):
-        return (0.5 * self.g * t**2
-            + self.initial_speed
+    def position_at_time(self, t):
+        return (self.start_x + self.initial_speed_x * t,
+            0.5 * self.g * t**2
+            + self.initial_speed_y * t
             + self.start_y)
 
 class Tank(object):
@@ -45,15 +45,12 @@ class Tank(object):
 
 class GameLoop(object):
     def tick(self):
-
-        # draw_world(
-        #     tank_1=t1.coords,
-        #     tank_2=t2.coords,
-        # )
-
+        self.game.draw(self.canvas,
+                       self.t1.x, self.t1.y,
+                       self.t2.x, self.t2.y,
+                       0, 0)
         self.t += 1
         self.root.after(20, self.tick)
-
 
     def __init__(self):
         self.t = 0
@@ -64,6 +61,8 @@ class GameLoop(object):
         self.canvas.bind("<Key>", self.key)
         self.canvas.pack()
 
+        self.game = Game(800, 600)
+
         self.t1 = Tank(100)
         self.t2 = Tank(700)
 
@@ -71,10 +70,13 @@ class GameLoop(object):
         self.root.mainloop()
 
     def key(self, event):
+        print repr(event.char)
         if event.char == "j":
             self.t1.turret_left()
         elif event.char == "k":
             self.t1.turret_right()
+        elif event.char == " ":
+            self.t1.fire()
 
 def main():
     GameLoop()
