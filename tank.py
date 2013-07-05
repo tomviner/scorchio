@@ -1,4 +1,4 @@
-#from game import draw_tank
+from game import Game
 
 from Tkinter import *
 
@@ -45,9 +45,10 @@ class Tank(object):
 
 class GameLoop(object):
     def tick(self):
-        #draw_tank(t1.x, t1.y)
-        #draw_tank(t2.x, t2.y)
-
+        self.game.draw(self.canvas,
+                       self.t1.x, self.t1.y,
+                       self.t2.x, self.t2.y,
+                       0, 0)
         self.t += 1
         self.root.after(20, self.tick)
 
@@ -59,6 +60,8 @@ class GameLoop(object):
         self.canvas.focus_set()
         self.canvas.bind("<Key>", self.key)
         self.canvas.pack()
+
+        self.game = Game(800, 600)
 
         self.t1 = Tank(100)
         self.t2 = Tank(700)
