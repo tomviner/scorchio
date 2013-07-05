@@ -19,7 +19,7 @@ class Shell(object):
 
     def position_at_time(self, t):
         t = t - self.start_t
-        t = t / 50.
+        t = t / 20.
         xy = (self.start_x + self.initial_speed_x * t,
             600-(0.5 * self.g * t**2
             + self.initial_speed_y * t
@@ -54,7 +54,11 @@ class Tank(object):
 
     def fire(self, t):
         print self.x, self.y, math.sin(self.angle), math.cos(self.angle)
-        return Shell(self.x, self.y, math.sin(self.angle), math.cos(self.angle), t)
+
+        def rad(deg):
+            return math.pi * deg / 180.
+        MUZ_VEL = 80
+        return Shell(self.x, self.y-200, math.sin(rad(self.angle))*MUZ_VEL, math.cos(rad(self.angle))*MUZ_VEL, t)
 
 
 
