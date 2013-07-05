@@ -5,19 +5,19 @@ from Tkinter import *
 
 
 class Shell(object):
-    g = 9.8
+    g = -9.8
 
     def __init__(self, start_x, start_y,
         speed_x, speed_y):
-        self.x = start_x
-        self.y = start_y
-        self.speed_x = speed_x
-        # never changes
-        self.speed_y = speed_y
+        self.start_x = start_x
+        self.start_y = start_y
+        self.initial_speed_x = speed_x
+        self.initial_speed_y = speed_y
 
-    def position_at_time(t):
-        return (0.5 * self.g * t**2
-            + self.initial_speed
+    def position_at_time(self, t):
+        return (self.start_x + self.initial_speed_x * t,
+            0.5 * self.g * t**2
+            + self.initial_speed_y * t
             + self.start_y)
 
 class Tank(object):
