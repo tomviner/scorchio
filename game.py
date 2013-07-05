@@ -4,20 +4,18 @@ from Tkinter import *
 class Game:
     def __init__(self, width, height):
         self.TANK_IMAGE = PhotoImage(file="graphics/tank.gif")
+        self.TANK_IMAGE_L = PhotoImage(file="graphics/tank_on_left.gif")
         self.height = height
         self.width = width
         self.old_px = 0
         self.old_py = 0
 
-    def draw_tank(self, canvas, x1, y1):
-        canvas.create_image(x1, y1, image=self.TANK_IMAGE, state="normal")
-
     def draw_proj(self, canvas, x1, y1, bg="red"):
         canvas.create_oval(x1, y1, x1 + 20, y1 + 20, fill=bg, width=0)
 
     def draw_setup(self, canvas, t1_x, t1_y, t2_x, t2_y):
-        self.draw_tank(canvas, t1_x, t1_y)
-        self.draw_tank(canvas, t2_x, t2_y)
+        canvas.create_image(t1_x, t1_y, image=self.TANK_IMAGE_L, state="normal")
+        canvas.create_image(t2_x, t2_y, image=self.TANK_IMAGE, state="normal")
 
     def draw_projectile(self, canvas, p_x, p_y):
         self.draw_proj(canvas, self.old_px, self.old_py, bg="blue")

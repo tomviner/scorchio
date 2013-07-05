@@ -24,7 +24,7 @@ class Shell(object):
 
 class Tank(object):
 
-    def __init__(self, start_x, start_y=100, angle=0):
+    def __init__(self, start_x, start_y=550, angle=0):
         self.x = start_x
         self.y = start_y
         self.angle = angle
@@ -36,6 +36,12 @@ class Tank(object):
     def turret_right(self):
         self.angle += 1
         print self.angle
+
+    def move_left(self):
+        self.x -= 1
+
+    def move_right(self):
+        self.x += 1
 
     @property
     def coords(self):
@@ -84,6 +90,10 @@ class GameLoop(object):
             self.t1.turret_left()
         elif event.char == "k":
             self.t1.turret_right()
+        if event.char == "a":
+            self.t1.move_left()
+        elif event.char == "d":
+            self.t1.move_right()
         elif event.char == " ":
             proj = self.t1.fire()
             self.projectile = proj
