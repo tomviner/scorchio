@@ -10,17 +10,22 @@ class Shell(object):
     g = -9.8
 
     def __init__(self, start_x, start_y,
-        speed_x, speed_y):
+        speed_x, speed_y, start_t):
         self.start_x = start_x
         self.start_y = start_y
         self.initial_speed_x = speed_x
         self.initial_speed_y = speed_y
+        self.start_t = start_t
 
     def position_at_time(self, t):
-        return (self.start_x + self.initial_speed_x * t,
-            0.5 * self.g * t**2
+        t = t - self.start_t
+        t = t / 50.
+        xy = (self.start_x + self.initial_speed_x * t,
+            600-(0.5 * self.g * t**2
             + self.initial_speed_y * t
-            + self.start_y)
+            + self.start_y))
+        print xy
+        return xy
 
 class Tank(object):
 
@@ -47,8 +52,9 @@ class Tank(object):
     def coords(self):
         return (self.x, self.y)
 
-    def fire(self, angle):
-        return Shell(self.x, self.y, math.sin(self.angle), math.cos(self.angle))
+    def fire(self, t):
+        print self.x, self.y, math.sin(self.angle), math.cos(self.angle)
+        return Shell(self.x, self.y, math.sin(self.angle), math.cos(self.angle), t)
 
 
 
@@ -95,7 +101,7 @@ class GameLoop(object):
         elif event.char == "d":
             self.t1.move_right()
         elif event.char == " ":
-            proj = self.t1.fire()
+            proj = self.t1.fire(self.t)
             self.projectile = proj
 
 def main():
