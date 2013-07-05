@@ -1,4 +1,4 @@
-#from game import draw_world
+#from game import draw_tank
 
 from Tkinter import *
 
@@ -45,15 +45,11 @@ class Tank(object):
 
 class GameLoop(object):
     def tick(self):
-
-        # draw_world(
-        #     tank_1=t1.coords,
-        #     tank_2=t2.coords,
-        # )
+        #draw_tank(t1.x, t1.y)
+        #draw_tank(t2.x, t2.y)
 
         self.t += 1
         self.root.after(20, self.tick)
-
 
     def __init__(self):
         self.t = 0
@@ -71,10 +67,13 @@ class GameLoop(object):
         self.root.mainloop()
 
     def key(self, event):
+        print repr(event.char)
         if event.char == "j":
             self.t1.turret_left()
         elif event.char == "k":
             self.t1.turret_right()
+        elif event.char == " ":
+            self.t1.fire()
 
 def main():
     GameLoop()
