@@ -2,16 +2,26 @@ from Tkinter import *
 
 root = Tk()
 
-canvas = Canvas(root, bg="blue", height=250, width=250)
 
-arc = canvas.create_arc(10,50,240,210, start=0, extent=150, fill="red")
-# w = Label(root, text="Hello, world!")
-# w.pack()
+TANK_IMAGE = PhotoImage(file="graphics/tank.gif")
+HEIGHT = 500
+WIDTH = 600
 
-tank_image = PhotoImage(file="graphics/tank.gif")
-panel = Label(root, image=tank_image)
-panel.pack(side="bottom", fill = "both", expand="no")
 
+def draw_tank(x1, y1):
+    canvas.create_image(x1, y1, image=TANK_IMAGE, state="normal")
+
+
+def draw_projectile(x1, y1):
+    canvas.create_oval(x1, y1, x1 + 20, y1 + 20, fill="red", width=1)
+
+
+canvas = Canvas(root, bg="blue", height=HEIGHT, width=WIDTH)
+
+draw_tank(50, HEIGHT-30)
+draw_tank(WIDTH-50, HEIGHT-30)
+
+draw_projectile(200, 200)
 
 canvas.pack()
 

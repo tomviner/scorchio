@@ -2,6 +2,24 @@
 
 from Tkinter import *
 
+
+
+class Shell(object):
+    g = 9.8
+
+    def __init__(self, start_x, start_y,
+        speed_x, speed_y):
+        self.x = start_x
+        self.y = start_y
+        self.speed_x = speed_x
+        # never changes
+        self.speed_y = speed_y
+
+    def position_at_time(t):
+        return (0.5 * self.g * t**2
+            + self.initial_speed
+            + self.start_y)
+
 class Tank(object):
 
     def __init__(self, start_x, start_y=100, angle=0):
@@ -21,14 +39,17 @@ class Tank(object):
     def coords(self):
         return (self.x, self.y)
 
+    def fire(self, angle):
+        pass
+
 
 class GameLoop(object):
     def tick(self):
 
-        draw_world(
-            tank_1=t1.coords,
-            tank_2=t2.coords,
-        )
+        # draw_world(
+        #     tank_1=t1.coords,
+        #     tank_2=t2.coords,
+        # )
 
         self.t += 1
         self.root.after(20, self.tick)
@@ -60,4 +81,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
