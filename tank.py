@@ -45,10 +45,10 @@ class Tank(object):
 
 class GameLoop(object):
     def tick(self):
-        self.game.draw(self.canvas,
+        self.game.draw_setup(self.canvas,
                        self.t1.x, self.t1.y,
-                       self.t2.x, self.t2.y,
-                       0, 0)
+                       self.t2.x, self.t2.y)
+        self.game.draw_projectile(self.canvas, 0, 0)
         self.t += 1
         self.root.after(20, self.tick)
 
